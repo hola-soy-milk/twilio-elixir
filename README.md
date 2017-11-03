@@ -15,6 +15,27 @@ def deps do
 end
 ```
 
+## Usage
+
+### Creating a user
+
+```elixir
+# Get your Account SID, Auth Token, Service SID and Channel SID from twilio.com/console
+account_sid = 'your_account_sid'
+auth_token = 'your_auth_token'
+service_sid = 'your_service_sid'
+client = TwilioElixir.Client.new(account_sid, auth_token)
+
+# Create the user
+user = client
+|> TwilioElixir.Chat.new
+|> TwilioElixir.V2.new
+|> TwilioElixir.Services.new(service_sid)
+|> TwilioElixir.UserList.add(identity: 'Fleur')
+IO.inspect user
+```
+
+
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/twilio_elixir](https://hexdocs.pm/twilio_elixir).
