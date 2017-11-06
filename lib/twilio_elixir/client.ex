@@ -6,12 +6,6 @@ defmodule TwilioElixir.Client do
 
   @doc """
   Instantiate a client with proper authentication
-
-  ## Examples
-
-      iex> TwilioElixir.hello
-      :world
-
   """
   def new() do
     :world
