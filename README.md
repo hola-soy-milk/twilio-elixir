@@ -17,22 +17,28 @@ end
 
 ## Usage
 
-### Creating a user
+### Messaging
 
 ```elixir
 # Get your Account SID, Auth Token, Service SID and Channel SID from twilio.com/console
-account_sid = 'your_account_sid'
-auth_token = 'your_auth_token'
-service_sid = 'your_service_sid'
-client = TwilioElixir.Client.new(account_sid, auth_token)
+account_sid = "your_account_sid"
+auth_token = "your_auth_token"
+service_sid = "your_service_sid"
+channel_sid = "your_channel_sid"
 
-# Create the user
-user = client
+channel = TwilioElixir.Client.new(account_sid, auth_token)
 |> TwilioElixir.Chat.new
 |> TwilioElixir.V2.new
 |> TwilioElixir.Services.new(service_sid)
-|> TwilioElixir.UserList.add(identity: 'Fleur')
-IO.inspect user
+|> TwilioElixir.Channels.list(channel_sid)
+
+# List all messages in a channel
+channel.messages
+|> Enum.map(fn(message) -> IO.inspect(message.body) end)
+
+# Send a message
+channel.messages.create(body: "Hello world!")
+
 ```
 
 
