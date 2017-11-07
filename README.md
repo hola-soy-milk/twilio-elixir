@@ -20,22 +20,23 @@ end
 ### Messaging
 
 ```elixir
+alias TwilioElixir.Client, as: Client
+alias TwilioElixir.Version, as: Version
+alias TwilioElixir.Service, as: Service
+alias TwilioElixir.Channel, as: Channel
+
 # Get your Account SID, Auth Token, Service SID and Channel SID from twilio.com/console
 account_sid = "your_account_sid"
 auth_token = "your_auth_token"
 service_sid = "your_service_sid"
 channel_sid = "your_channel_sid"
-client = TwilioElixir.Client.new(account_sid, auth_token)
 
-channel = client |> TwilioElixir.Version.v2 |> TwilioElixir.Service.new(service_sid) |> TwilioElixir.Channel.new(channel_sid)
+# Channel struct
+channel = Client.new(account_sid, auth_token) |> Version.v2 |> Service.new(service_sid) |> Channel.new(channel_sid)
 
 # List all messages in a channel
-TwilioElixir.Channel.messages(channel)
-|> Enum.map(fn(message) -> IO.inspect(message.body) end)
-
-# Send a message
-channel.messages.create(body: "Hello world!")
-
+Channel.messages(channel)
+|> Enum.each(fn(message) -> IO.inspect(message["body"]) end)
 ```
 
 
