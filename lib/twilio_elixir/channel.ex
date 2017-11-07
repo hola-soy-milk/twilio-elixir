@@ -16,7 +16,8 @@ defmodule TwilioElixir.Channel do
   end
 
   def messages(channel) do
-    TwilioElixir.get(messages_url(channel), client(channel))
+    {:ok, messages_body} = TwilioElixir.get(messages_url(channel), client(channel))
+    messages_body["messages"]
   end
 
   def client(%__MODULE__{service: service}) do
