@@ -25,15 +25,12 @@ account_sid = "your_account_sid"
 auth_token = "your_auth_token"
 service_sid = "your_service_sid"
 channel_sid = "your_channel_sid"
+client = TwilioElixir.Client.new(account_sid, auth_token)
 
-channel = TwilioElixir.Client.new(account_sid, auth_token)
-|> TwilioElixir.Chat.new
-|> TwilioElixir.V2.new
-|> TwilioElixir.Services.new(service_sid)
-|> TwilioElixir.Channels.list(channel_sid)
+channel = client |> TwilioElixir.Version.v2 |> TwilioElixir.Service.new(service_sid) |> TwilioElixir.Channel.new(channel_sid)
 
 # List all messages in a channel
-channel.messages
+TwilioElixir.Channel.messages(channel)
 |> Enum.map(fn(message) -> IO.inspect(message.body) end)
 
 # Send a message
