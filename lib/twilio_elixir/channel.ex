@@ -18,6 +18,15 @@ defmodule TwilioElixir.Channel do
   def messages(channel) do
     {:ok, messages_body} = TwilioElixir.get(messages_url(channel), client(channel))
     messages_body["messages"]
+    |> Enum.map(fn(message) -> %TwilioElixir.Message{
+      body: message["body"],
+      was_edited: message["was_edited"],
+      recipient: message["to"],
+      sid: message["sid"],
+      date_created: message["date_created"],
+      date_updated: message["date_updated"]
+    }
+    end)
   end
 
   def client(%__MODULE__{service: service}) do
