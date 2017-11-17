@@ -36,7 +36,7 @@ channel = Client.new(account_sid, auth_token) |> Version.v2 |> Service.new(servi
 
 # List all messages in a channel
 Channel.messages(channel)
-|> Enum.each(fn(message) -> IO.inspect(message["body"]) end)
+|> Enum.each(fn(message) -> IO.inspect(message.body) end)
 ```
 
 
